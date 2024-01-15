@@ -1,8 +1,3 @@
-request_string = File.read("request_file.txt")
-first = request_string.split("\n")
-p first
-#p rest
-
 
 
 class Request 
@@ -12,6 +7,7 @@ class Request
      @resource = first.split(" ")[1]
      @version = first.split(" ")[2]
      @headers = {}
+     @params = {}
     end
 
     def method()
@@ -26,7 +22,7 @@ class Request
 
     def headers()
         i = 0 
-        while @rest[i].include? ":"
+        while @rest[i] != nil and @rest[i].include? ":"
           temp = @rest[i].split(":")
           @headers.store(temp[0],temp[1].strip)
           i+=1 
@@ -39,21 +35,21 @@ class Request
         paramstring = ""
         @rest.each_with_index do |element,index|
             if !element.include? ":"
-                paramstring = paramstring + @rest[index]
+                paramstring = @rest[index]
             end
         end
-        paramstring.split("&")
-
-
-
+        paramvalues = paramstring.split("&")
+        
+        paramvalues.each_with_index do  |element,index|
+            temp = element.split("=")
+            @params.store(temp[0],temp[1])
+        end
+        @params
     end
 end
 
-request = Request.new(request_string)
-#p request.version
-#p request.method
-#p request.resource
-#p request.headers
+
+
 
 
 
