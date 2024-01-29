@@ -3,10 +3,13 @@ require_relative "lib/request"
 
 router = Router.new
 
-router.add_route("/grillkorv", "get")
-router.add_route("/")
+router.add_route("/grillkorv", "GET")
+router.add_route("/", "GET")
+router.add_route("/login", "POST")
+router.add_route("/login/:id")
 
 
-request = Request.new(File.read('./spec/example_requests/get-index.request.txt'))
-
+request = Request.new(File.read('./spec/example_requests/post-login.request.txt'))
+#request = "/grillkorv"
 router.match_route(request)
+#p request.resource
