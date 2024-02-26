@@ -6,7 +6,7 @@ router = Router.new
 router.add_route("/grillkorv", "GET")
 router.add_route("/", "GET")
 router.add_route("/login", "POST")
-router.add_route("/login/:id")
+router.add_route("/login/:id","GET")
 
 
 request = Request.new(File.read('./spec/example_requests/post-login.request.txt'))

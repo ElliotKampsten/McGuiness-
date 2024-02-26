@@ -1,3 +1,5 @@
-str = "fortnite"
+str = '/brev/:id'
+#\/(\W\w+)
+str = str.gsub(/([:]\w+)/,'hej')
 
-puts str.gsub(/[oe]/, 'a')
+p str

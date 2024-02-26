@@ -5,6 +5,8 @@ class Router
     end
 
     def add_route(route,method)
+        route = route.gsub(/([:]\w+)/,'(\w+)')
+        p route
         @routes.store(route,method)
         #gör gsub på kolondelen av strängen. används regulärt utryck i gsub för att byta ut mot annat regulärt uttryck. 
     end
