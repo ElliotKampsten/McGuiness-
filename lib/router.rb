@@ -5,9 +5,9 @@ class Router
     end
 
     def add_route(route,method)
-        route = route.gsub(/([:]\w+)/,'(\w+)')
-        p route
+        route = Regexp.new(route.gsub(/([:]\w+)/,'(\w+)') + '$')
         @routes.store(route,method)
+        #puts route
         #gör gsub på kolondelen av strängen. används regulärt utryck i gsub för att byta ut mot annat regulärt uttryck. 
     end
 
@@ -16,12 +16,10 @@ class Router
         #måste ta hänsyn till /:id 
        @routes.each do |route,method|
 
-        #hitta regulärtuttryck som plockar upp allt
-        # byt sedan ut request kolonsträngar med uttryck
-        #matcha
-
-            if route == request.resource && request.method == method
-                puts "Found #{route} "
+            #Kan inte upptäcka svenska karaktärer åäö
+            if request.resource.match?(route) && request.method == method
+                puts "Found #{route}"
+                puts "Request resource is: #{request.resource}"
                 puts "Method is: #{method}"
                 puts @routes
             end
