@@ -11,7 +11,9 @@ class HTTPServer
         puts "Listening on #{@port}"
         router = Router.new
         router.add_route("/grillkorv", "GET")
-        #router.add_route("/", "GET")
+        router.add_route("/", "GET")  do 
+            "<h1>hej</h1>"
+        end
         router.add_route("/login", "POST")
         router.add_route("/login/:id", "GET")
         router.add_route("/:id/login", "GET")
@@ -29,11 +31,14 @@ class HTTPServer
             request = Request.new(data)
             #Sen kolla om resursen (filen finns)
             
-            if router.match_route(request) == true
+            route = router.match_route(request)
+            if  route
                 status = 200
+                html = route[:block].call
             else 
                 status = 404
                 puts(router.match_route(request))
+
                 debugvar1 = request.resource() 
                 debugvar2 = request.method() 
             end
@@ -43,7 +48,7 @@ class HTTPServer
 
 
             # Nedanstående bör göras i er Response-klass
-            html = "<h1>#{status}<h1> <h1>#{debugvar1}<h1> <h1>#{debugvar2}<h1>"
+            #html = "<h1>#{status}<h1> <h1>#{debugvar1}<h1> <h1>#{debugvar2}<h1>"
 
             session.print "HTTP/1.1 200\r\n"
             session.print "Content-Type: text/html\r\n"
