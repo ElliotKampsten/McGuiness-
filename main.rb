@@ -4,11 +4,9 @@ require_relative "lib/tcp_server"
 
 router = Router.new
 
-router.add_route("/grillkorv", "GET")
+router.add_route("/skateboard", "GET")
 router.add_route("/", "GET")
-router.add_route("/login", "POST")
-router.add_route("/login/:id", "GET")
-router.add_route("/:id/login", "GET")
+
 
 
 

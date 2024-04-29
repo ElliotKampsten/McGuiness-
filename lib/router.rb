@@ -12,18 +12,17 @@ class Router
     end
 
     def match_route(request)
-        #p request
-        #måste ta hänsyn till /:id 
        @routes.each do |route,method|
 
-            #Kan inte upptäcka svenska karaktärer åäö
             if request.resource.match?(route) && request.method == method
                 puts "Found #{route}"
                 puts "Request resource is: #{request.resource}"
                 puts "Method is: #{method}"
                 puts @routes
+                return true
             end
         end
+        return false 
     end
 end
 

@@ -29,10 +29,13 @@ class HTTPServer
             request = Request.new(data)
             #Sen kolla om resursen (filen finns)
             
-            if router.match_route(request)
-                status = 200 
+            if router.match_route(request) == true
+                status = 200
             else 
                 status = 404
+                puts(router.match_route(request))
+                debugvar1 = request.resource() 
+                debugvar2 = request.method() 
             end
          
 
@@ -40,7 +43,7 @@ class HTTPServer
 
 
             # Nedanstående bör göras i er Response-klass
-            html = "<h1>#{status}<h1>"
+            html = "<h1>#{status}<h1> <h1>#{debugvar1}<h1> <h1>#{debugvar2}<h1>"
 
             session.print "HTTP/1.1 200\r\n"
             session.print "Content-Type: text/html\r\n"
