@@ -10,7 +10,9 @@ class HTTPServer
         server = TCPServer.new(@port)
         puts "Listening on #{@port}"
         router = Router.new
-        router.add_route("/grillkorv", "GET")
+        router.add_route("/grillkorv", "GET") do
+            "<h1>churizo</h1>"
+        end
         router.add_route("/", "GET")  do 
             "<h1>hej</h1>"
         end
@@ -31,10 +33,14 @@ class HTTPServer
             request = Request.new(data)
             #Sen kolla om resursen (filen finns)
             
-            route = router.match_route(request)
-            if  route
+            route_hash = router.match_route(request)
+            
+
+
+            #nedanstående i response
+            if  route_hash
                 status = 200
-                html = route[:block].call
+                html = route_hash [:block].call
             else 
                 status = 404
                 puts(router.match_route(request))

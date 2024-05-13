@@ -3,6 +3,9 @@
 class Request 
     def initialize(reqstring)
      first, *@rest = reqstring.split("\n")
+     if first == nil
+        binding.break
+     end
      @method = first.split(" ")[0]
      @resource = first.split(" ")[1]
      @version = first.split(" ")[2]

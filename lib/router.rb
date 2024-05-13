@@ -11,18 +11,19 @@ class Router
     end
 
     def match_route(request)
-       @routes.each do |route|
+       @routes.each do |enhash|
         p "0000000000"
         p request.method
         p request.resource
-        p route
+        p enhash
+        p enhash["route"]
         p "0000000000"
 
-        if request.resource.match?(route) && request.method == route[1]
-                puts "Found #{:route}"
+        if request.resource.match?(enhash[:route]) && request.method == enhash[:method]
+                puts "Found #{enhash[:route]}"
                 puts "Request resource is: #{request.resource}"
                 puts @routes
-                return route
+                return enhash
             end
         end
        
